@@ -23,13 +23,13 @@ public class MysqlDBConnEnv {
 
             // 3. 쿼리 실행
             Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM employees");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM book");
 
             // 결과 처리
             while (rs.next()) {
-                int id = rs.getInt("emp_no");          // 컬럼명으로 접근
-                String name = rs.getString("first_name");
-                Date hireDate = rs.getDate("hire_date");
+                int id = rs.getInt("bookID");          // 컬럼명으로 접근
+                String name = rs.getString("bookName");
+                Date hireDate = rs.getDate("publishDate");
 
                 System.out.println(id + " | " + name + " | " + hireDate);
             }
