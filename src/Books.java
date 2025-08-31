@@ -12,12 +12,11 @@ public class Books {
     private String publisher;
     private Date publishDate;
     private Integer quantity;
-    private static List<Books> bookList = new ArrayList<>(); // Danh sách lưu trữ sách
-    private static Scanner scanner = new Scanner(System.in);
+
+    private static List<Books> bookList = new ArrayList<>();
     private static SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
-    public Books(String bookID, String bookName, String author, String publisher,
-                 Date publishDate, Integer quantity) {
+    public Books(String bookID, String bookName, String author, String publisher, Date publishDate, Integer quantity) {
         this.bookID = bookID;
         this.bookName = bookName;
         this.author = author;
@@ -26,18 +25,19 @@ public class Books {
         this.quantity = quantity;
     }
 
-    public String getBookID() {return bookID;}
-    public void setBookID(String bookID) {this.bookID = bookID;}
-    public String getBookName() {return bookName;}
-    public void setBookName(String bookName) {this.bookName = bookName;}
-    public String getAuthor() {return author;}
-    public void setAuthor(String author) {this.author = author;}
-    public String getPublisher() {return publisher;}
-    public void setPublisher(String publisher) {this.publisher = publisher;}
-    public Date getPublishDate() {return publishDate;}
-    public void setPublishDate(Date publishDate) {this.publishDate = publishDate;}
-    public Integer getQuantity() {return quantity;}
-    public void setQuantity(Integer quantity) {this.quantity = quantity;}
+    // Getters and Setters
+    public String getBookID() { return bookID; }
+    public void setBookID(String bookID) { this.bookID = bookID; }
+    public String getBookName() { return bookName; }
+    public void setBookName(String bookName) { this.bookName = bookName; }
+    public String getAuthor() { return author; }
+    public void setAuthor(String author) { this.author = author; }
+    public String getPublisher() { return publisher; }
+    public void setPublisher(String publisher) { this.publisher = publisher; }
+    public Date getPublishDate() { return publishDate; }
+    public void setPublishDate(Date publishDate) { this.publishDate = publishDate; }
+    public Integer getQuantity() { return quantity; }
+    public void setQuantity(Integer quantity) { this.quantity = quantity; }
 
     @Override
     public String toString() {
@@ -51,10 +51,9 @@ public class Books {
                 '}';
     }
 
-    private static void addBook() {
+    private static void addBook(Scanner scanner) {
         System.out.print("책 ID: ");
-        String bookID = scanner.next();
-        scanner.nextLine(); // Đọc bỏ dòng mới
+        String bookID = scanner.nextLine();
 
         System.out.print("책 이름: ");
         String bookName = scanner.nextLine();
@@ -68,7 +67,7 @@ public class Books {
         Date publishDate = null;
         while (publishDate == null) {
             System.out.print("책 출판일 (dd/MM/yyyy): ");
-            String dateStr = scanner.next();
+            String dateStr = scanner.nextLine();
             try {
                 publishDate = dateFormat.parse(dateStr);
             } catch (ParseException e) {
@@ -77,7 +76,14 @@ public class Books {
         }
 
         System.out.print("책 수량: ");
-        int quantity = scanner.nextInt();
+        int quantity = -1;
+        while (quantity < 0) {
+            try {
+                quantity = Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("숫자 형식이 잘못되었습니다. 수량을 숫자로 입력해주세요.");
+            }
+        }
 
         Books book = new Books(bookID, bookName, author, publisher, publishDate, quantity);
         bookList.add(book);
@@ -94,14 +100,14 @@ public class Books {
         }
     }
 
-    private static void update() {
+    private static void update(Scanner scanner) {
         if (bookList.isEmpty()) {
             System.out.println("수정할 도서가 없습니다.");
             return;
         }
 
         System.out.print("수정할 도서의 ID를 입력하세요: ");
-        String id = scanner.next();
+        String id = scanner.nextLine();
 
         Books foundBook = null;
         for (Books book : bookList) {
@@ -117,7 +123,6 @@ public class Books {
         }
 
         System.out.println("수정할 정보를 입력하세요 (수정하지 않으려면 엔터를 누르세요):");
-        scanner.nextLine(); // Đọc bỏ dòng mới
 
         System.out.print("책 이름 (" + foundBook.getBookName() + "): ");
         String bookName = scanner.nextLine();
@@ -162,7 +167,7 @@ public class Books {
         System.out.println("도서 정보가 성공적으로 수정되었습니다!");
     }
 
-    private static void manageBooks() {
+    public static void manageBooks(Scanner scanner) {
         int choice = -1;
         while (choice != 0) {
             System.out.println("\n--- 도서 관리 메뉴 ---");
@@ -173,17 +178,16 @@ public class Books {
             System.out.print("선택 입력: ");
 
             try {
-                choice = scanner.nextInt();
-                scanner.nextLine(); // Đọc bỏ dòng mới
+                choice = Integer.parseInt(scanner.nextLine());
                 switch (choice) {
                     case 1:
-                        addBook();
+                        addBook(scanner);
                         break;
                     case 2:
                         display();
                         break;
                     case 3:
-                        update();
+                        update(scanner);
                         break;
                     case 0:
                         System.out.println("메인 메뉴로 돌아갑니다.");
@@ -191,15 +195,9 @@ public class Books {
                     default:
                         System.out.println("잘못된 선택입니다.");
                 }
-            } catch (java.util.InputMismatchException e) {
+            } catch (NumberFormatException e) {
                 System.out.println("잘못된 선택입니다. 숫자를 입력해주세요.");
-                scanner.nextLine(); // Đọc bỏ dòng không hợp lệ
-                choice = -1;
             }
         }
-    }
-
-    public static void main(String[] args) {
-        manageBooks();
     }
 }

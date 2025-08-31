@@ -66,7 +66,7 @@ public class MysqlDBConnEnv {
         }
     }
 
-    private static void printMenu() {
+    public static void printMenu() {
         System.out.println("\n--- 직원 관리 시스템 ---");
         System.out.println("1. 직원 등록");
         System.out.println("2. 직원 조회");
@@ -76,7 +76,7 @@ public class MysqlDBConnEnv {
         System.out.print("메뉴를 선택하세요: ");
     }
 
-    private static void insertEmployee(Connection conn) throws SQLException {
+    public static void insertEmployee(Connection conn) throws SQLException {
         System.out.println("\n--- 직원 등록 ---");
         System.out.print("이름: ");
         String name = scanner.nextLine();
