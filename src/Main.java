@@ -17,7 +17,7 @@ public class Main {
 
             switch (choice) {
                 case 1 -> Books.manageBooks(scanner);
-                // case 2 -> MemberMenu.showMenu();
+                case 2 -> MemberMenu.showMenu(scanner);
                 case 3 -> MysqlDBConnEnv.main(null);
                 case 4 -> BorrowMenu.showMenu();
                 case 0 -> System.out.println("안녕히 가세요");

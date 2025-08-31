@@ -41,14 +41,13 @@ public class Books {
 
     @Override
     public String toString() {
-        return "Books{" +
-                "bookID='" + bookID + '\'' +
-                ", bookName='" + bookName + '\'' +
-                ", author='" + author + '\'' +
-                ", publisher='" + publisher + '\'' +
-                ", publishDate=" + dateFormat.format(publishDate) +
-                ", quantity=" + quantity +
-                '}';
+        return
+                "책ID='" + bookID + '\'' +
+                ", 책 이름='" + bookName + '\'' +
+                ", 저자='" + author + '\'' +
+                ", 출판사='" + publisher + '\'' +
+                ", 출판일=" + dateFormat.format(publishDate) +
+                ", 수량=" + quantity;
     }
 
     private static void addBook(Scanner scanner) {
