@@ -1,11 +1,11 @@
-
+import java.time.LocalDate;
 
 public class Borrow {
 
     // Class fields (데이터베이스 테이블의 열에 해당)
     private String bookID;
     private String memberID;
-    private String loanDate;
+    private LocalDate loanDate;
     private LocalDate returnDate;
     private boolean overdue; // 반납 기한 초과 여부
 
